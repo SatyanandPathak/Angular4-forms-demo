@@ -1,0 +1,44 @@
+<div class="well">
+    
+    <form #myforms = "ngForm" (ngSubmit) = "submitDetails(myforms.value.detailsGroup)">
+        <div ngModelGroup = "detailsGroup">
+            <div class="form-group row">
+                <label for="myUserName" class="col-xs-2">User Name:</label>
+                <div class="col-xs-2">
+                    <input class = "form-control" type="text"
+                        autocomplete="off"
+                        required
+                        minLength = "3"
+                        maxlength = "20"
+                        ngModel name="userName"
+                        id = "myUserName"
+                        #userName = "ngModel" (change) = "logDetails(userName)"
+                        />
+                </div>
+                <div *ngIf="userName.touched && userName.invalid" class="col-xs-4 alert alert-danger">
+                    <div *ngIf="userName.errors.required">User Name is required
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                    <label for="myPassword" class="col-xs-2">Password</label>
+                    <div class="col-xs-2">
+                        <input class = "form-control" type="password"
+                            autocomplete="off"
+                            ngModel name="password"
+                            id = "myPassword"/>
+                    </div>
+            </div>
+
+            <div>
+                <button class = "btn btn-primary" [disabled]="myforms.invalid">Submit</button>
+            </div>
+
+        </div>
+    </form>
+    {{myforms.value | json}}
+
+</div>

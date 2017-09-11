@@ -1,0 +1,59 @@
+<div class="container well">
+    <form [formGroup] = "form" (ngSubmit) = "login()">
+        <div formGroupName = "account">
+            <div *ngIf="form.errors"
+            class="form form-group alert alert-danger">Invalid username/password. Please check</div>
+            <div class="form-group row">
+                <label class = "col-xs-2" for="username">User Name</label>
+                <div class="col-xs-2">
+                    <input type="text" 
+                    autocomplete="off"
+                    class="form-control"
+                    id = "username"
+                    formControlName ="username"/>
+                </div>
+                <div *ngIf="username.touched && username.invalid" class="col-xs-4">
+                        <div *ngIf="username.errors.required" class = "alert alert-danger">
+                            User Name is required
+                        </div> 
+                        <div *ngIf="!username.errors.required && username.errors.minlength" class = "alert alert-danger">
+                            Minumum length is {{username.errors.minlength.requiredLength}}
+                        </div> 
+                        <!-- <div *ngIf="!username.errors.required && !username.errors.minlength && username.errors.pattern" class = "alert alert-danger">
+                            Patterns does not match
+                        </div> -->
+                        <div 
+                            *ngIf="!username.errors.required && 
+                                    !username.errors.minlength && 
+                                    username.errors.cannotContainEmptySpace" class = "alert alert-danger">
+                                User name cannot contain space
+                        </div>
+                        <div 
+                        *ngIf="!username.errors.required && 
+                                !username.errors.minlength && 
+                                !username.errors.cannotContainEmptySpace &&
+                                username.errors.shouldBeUnique" class = "alert alert-danger">
+                            User already exists
+                    </div> 
+                </div>
+                <div *ngIf="username.pending" class="col-xs-4">Checking unique user...</div>
+            </div>
+
+            <div class="form-group row">
+                    <label class = "col-xs-2" for="password">Password</label>
+                    <div class="col-xs-2">
+                        <input 
+                        type="password" 
+                        class="form-control"
+                        id= "password"
+                        formControlName = "password"/>
+                    </div>
+            </div>
+            {{form.value | json}}
+            <div>
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </form>
+</div>

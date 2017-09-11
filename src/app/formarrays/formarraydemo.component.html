@@ -1,0 +1,15 @@
+<div class="well">
+    <form [formGroup]="arraysform">
+        <input formControlName = "name" #topic type="text" class="form-control" (keyup.enter)="addTopic(topic)"/>
+        <div formGroupName = "contact">
+            <input formControlName = "email"/>
+            <input formControlName = "phone">
+        </div>
+        <ul class="list-group">
+            <li *ngFor="let topic of topics.controls" class="list-group-item" (click) = "removeTopic(topic)">
+                {{topic.value}}
+            </li>
+        </ul>
+    </form>
+</div>
+
